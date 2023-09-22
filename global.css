@@ -110,7 +110,7 @@ section {
     gap: 1rem;
 }
 
-.card-1 {
+/* .card-2 {
     background-color: #fff;
     border-radius: 0.5rem;
     padding: 1.5rem;
@@ -119,7 +119,24 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 auto;
+} */
+
+.card-1 {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 1px solid #E5E7EB;
+    max-width: 16rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 24rem;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
 }
 
 @media (min-width: 640px) {
@@ -195,6 +212,13 @@ section {
         padding-bottom: 6rem;
     }
 
+    .grid {
+        grid-template-columns: repeat(3, minmax(0, 3fr));
+    }
+
+}
+
+@media (min-width: 1280px) {
     .grid {
         grid-template-columns: repeat(4, minmax(0, 3fr));
     }
