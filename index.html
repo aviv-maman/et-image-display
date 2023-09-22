@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./global.css">
-
+    <script src="./actions.js" async></script>
 </head>
 
 <body>
@@ -27,37 +27,24 @@
                 </div>
 
                 <div class="form-wrapper">
-                    <form action="#" class="g-form">
-
-                        <input type="search" placeholder="Search for images" class="g-input" />
-                        <button type="submit" class="g-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="g-icon" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M15 8h.01"></path>
-                                <path d="M11.5 21h-5.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5"></path>
-                                <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                                <path d="M20.2 20.2l1.8 1.8"></path>
-                                <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l2 2"></path>
-                            </svg>
+                    <form class="g-form" onsubmit="onSearch(event)">
+                        <input id="query" name="query" type="search" placeholder="Search for images" class="g-input" />
+                        <button class="g-button">
+                            <img src="search-icon.svg" class="g-icon" />
                             <span class="g-button-text">Search</span>
                         </button>
+
                     </form>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="grid">
-                <div class="card-1">
-                    <img alt="Image" src="https://cdn.pixabay.com/photo/2013/10/03/23/19/bike-190483_1280.jpg"
-                        class="card-image" />
-                </div>
-                <div class="card-1"></div>
-                <div class="card-1"></div>
-                <div class="card-1"></div>
-            </div>
+            <div class="grid"></div>
+            <button class="g-button" type="button" onclick="loadMore()">
+                <img src="refresh-icon.svg" class="g-icon" />
+                <span class="g-button-text">Load More</span>
+            </button>
         </section>
 
     </main>
