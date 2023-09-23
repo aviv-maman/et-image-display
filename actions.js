@@ -1,12 +1,18 @@
 // For Search (form elements & variables)
-let [page, results, grid] = [1, [], null];
+let page = 1,
+  results = [],
+  grid;
 
 // For loading state
-let [spinnerIcons, searchIcon, refreshIcon, isLoading, searchBtn, loadMoreBtn] = [null, null, null, false, null, null];
+let spinnerIcons,
+  searchIcon,
+  refreshIcon,
+  isLoading = false,
+  searchBtn,
+  loadMoreBtn;
 
 //Modal elements
-let [
-  modalImage,
+let modalImage,
   modalTitle,
   modalUser,
   modalUserImageURL,
@@ -24,8 +30,7 @@ let [
   modalLargeImageURL,
   modalDimensions,
   modalImageSize,
-  modalUserURL,
-] = [];
+  modalUserURL;
 
 const toggleLoading = () => {
   spinnerIcons = document.getElementsByClassName('spinner-icon');
