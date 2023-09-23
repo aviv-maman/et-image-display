@@ -86,9 +86,10 @@ const loadMore = async () => {
 
 const renderResults = (results = []) => {
   results.forEach((item) => {
-    const div = document.createElement('div');
-    div.classList.add('card-1');
-    div.onclick = () => {
+    const figure = document.createElement('figure');
+    figure.classList.add('card-1');
+    figure.classList.add('h-effect');
+    figure.onclick = () => {
       prepareModalData(item.id);
       openModal();
     };
@@ -96,9 +97,63 @@ const renderResults = (results = []) => {
     const image = document.createElement('img');
     image.src = item.largeImageURL;
     image.classList.add('card-image');
-    div.appendChild(image);
+    figure.appendChild(image);
 
-    grid.appendChild(div);
+    const figcaption = document.createElement('figcaption');
+    figure.appendChild(figcaption);
+    const topDiv = document.createElement('div');
+    topDiv.classList.add('effect-top');
+    figcaption.appendChild(topDiv);
+
+    item.tags.split(', ').forEach((tag) => {
+      const span = document.createElement('span');
+      span.classList.add('tag-1');
+      span.innerHTML = tag;
+      topDiv.appendChild(span);
+    });
+
+    const bottomDiv = document.createElement('div');
+    bottomDiv.classList.add('effect-bottom');
+    figcaption.appendChild(bottomDiv);
+
+    const viewsBadge = document.createElement('div');
+    viewsBadge.classList.add('tag-2');
+    const viewsIcon = document.createElement('img');
+    viewsIcon.src = './icons/eye-icon.svg';
+    viewsIcon.width = 16;
+    viewsIcon.height = 16;
+    viewsBadge.appendChild(viewsIcon);
+    const viewsText = document.createElement('span');
+    viewsText.innerHTML = item.views;
+    viewsBadge.appendChild(viewsText);
+
+    const downloadsBadge = document.createElement('div');
+    downloadsBadge.classList.add('tag-2');
+    const downloadsIcon = document.createElement('img');
+    downloadsIcon.src = './icons/download-icon.svg';
+    downloadsIcon.width = 16;
+    downloadsIcon.height = 16;
+    downloadsBadge.appendChild(downloadsIcon);
+    const downloadsText = document.createElement('span');
+    downloadsText.innerHTML = item.downloads;
+    downloadsBadge.appendChild(downloadsText);
+
+    const likesBadge = document.createElement('div');
+    likesBadge.classList.add('tag-2');
+    const likesIcon = document.createElement('img');
+    likesIcon.src = './icons/thumb-up-icon.svg';
+    likesIcon.width = 16;
+    likesIcon.height = 16;
+    likesBadge.appendChild(likesIcon);
+    const likesText = document.createElement('span');
+    likesText.innerHTML = item.likes;
+    likesBadge.appendChild(likesText);
+
+    bottomDiv.appendChild(viewsBadge);
+    bottomDiv.appendChild(downloadsBadge);
+    bottomDiv.appendChild(likesBadge);
+
+    grid.appendChild(figure);
   });
 };
 
