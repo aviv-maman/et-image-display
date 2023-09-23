@@ -56,35 +56,26 @@ document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
     grid = document.getElementsByClassName('grid')[0];
     grid.innerHTML = '';
-    toggleLoading();
-    searchImages('', 1)
-      .then((res) => {
-        renderResults(res.hits);
-      })
-      .then(() => {
-        toggleLoading();
-      });
+    searchImages('', 1).then((res) => {
+      renderResults(res.hits);
+    });
   }
 };
 
 const onSearch = async (e) => {
   e.preventDefault();
-  toggleLoading();
   page = 1;
   results = [];
   const queryInput = e.target.query;
   const res = await searchImages(queryInput.value, 1);
-  toggleLoading();
   grid.innerHTML = '';
   renderResults(res.hits);
 };
 
 const loadMore = async () => {
-  toggleLoading();
   const query = document.getElementById('query').value;
   page++;
   const res = await searchImages(query, page);
-  toggleLoading();
   renderResults(res.hits);
 };
 
@@ -107,6 +98,7 @@ const renderResults = (results = []) => {
 };
 
 const searchImages = async (query, page = 1, pageSize = 12) => {
+  toggleLoading();
   try {
     const API_KEY = '39601786-1601cac9077ffbe35beb1c0a6';
     const res = await fetch(`https://pixabay.com/api/?key=${API_KEY}&q=${query}&image_type=photo&page=${page}&per_page=${pageSize}`, {
@@ -129,6 +121,8 @@ const searchImages = async (query, page = 1, pageSize = 12) => {
       console.error(`${error.name} - ${error.message}`);
     }
     throw error;
+  } finally {
+    toggleLoading();
   }
 };
 
