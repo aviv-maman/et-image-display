@@ -1,0 +1,173 @@
+/* CSS for the modal container */
+.modal {
+    display: none;
+    /* Hide the modal by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black background with opacity */
+}
+
+/* Style the modal content */
+.modal-content {
+    background-color: #fff;
+    margin: 1rem auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 1280px;
+    position: relative;
+    height: 80vh;
+    overflow-y: auto;
+}
+
+/* Style the close button */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.more-info-wrapper {
+    display: flow-root;
+    border: 1px solid #E5E7EB;
+    border-radius: 0.5rem;
+}
+
+.more-info-title {
+    gap: 0.25rem;
+    padding: 0.75rem;
+    border-bottom: 1px solid #E5E7EB;
+    word-break: break-all;
+}
+
+.feature-wrapper {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+article {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid rgb(243 244 246);
+    border-radius: 0.5rem;
+    background-color: white;
+    padding: 1.5rem;
+}
+
+.article-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.article-icon {
+    border-radius: 9999px;
+    background-color: rgb(243 244 246);
+    padding: 0.5rem;
+    color: rgb(75 85 99);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+}
+
+.feature-name {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: rgb(107 114 128);
+}
+
+.feature-value {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 500;
+}
+
+dt {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+dd {
+    color: #6B7280;
+    margin: 0;
+}
+
+dl {
+    margin: 0;
+}
+
+.modal-title-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.modal-title {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 700;
+    color: rgb(17 24 39);
+    margin: 0.5rem 0;
+}
+
+.avatar-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 1rem 0;
+}
+
+.avatar-name {
+    color: rgb(107 114 128);
+}
+
+.avatar-img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    object-fit: cover;
+}
+
+@media (min-width: 640px) {
+    .modal-content {
+        margin: 8rem auto;
+    }
+}
+
+@media (min-width: 768px) {
+    .feature-wrapper {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .feature-value {
+        font-size: 1.2rem;
+    }
+
+    article {
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+    }
+}

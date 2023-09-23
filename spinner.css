@@ -1,0 +1,33 @@
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(-25%);
+        animation-timing-function: cubic-bezier(0.8, 0, 1, 1)
+    }
+
+    50% {
+        transform: none;
+        animation-timing-function: cubic-bezier(0, 0, 0.2, 1)
+    }
+}
+
+.animate-bounce {
+    animation: bounce 1s infinite
+}
+
+.fill-black {
+    fill: #000
+}
+
+.\[animation-delay\:\.2s\] {
+    animation-delay: .2s
+}
+
+.\[animation-delay\:\.4s\] {
+    animation-delay: .4s
+}
+
+.spinner-icon {
+    display: none;
+}

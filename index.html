@@ -9,11 +9,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./global.css">
+    <link rel="stylesheet" href="./modal.css">
+    <link rel="stylesheet" href="./spinner.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
     <script src="./actions.js" async></script>
 </head>
 
 <body>
-    <main class='main-sm main-lg'>
+    <main>
         <section>
             <div style="padding: 2rem">
                 <div>
@@ -21,7 +26,7 @@
                         Image Display
                     </h2>
 
-                    <p class="sm-mt-4 sm-block">
+                    <p class="form-description">
                         Search for images and display them in a grid.
                     </p>
                 </div>
@@ -29,8 +34,16 @@
                 <div class="form-wrapper">
                     <form class="g-form" onsubmit="onSearch(event)">
                         <input id="query" name="query" type="search" placeholder="Search for images" class="g-input" />
-                        <button class="g-button">
-                            <img src="search-icon.svg" class="g-icon" />
+                        <button id="search-btn" class="g-button" type="submit" disabled>
+                            <img id="search-icon" src="search-icon.svg" class="g-icon" />
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-live="polite"
+                                aria-busy="true" aria-labelledby="title-08a desc-08a" class="spinner-icon g-icon">
+                                <path d="M7 8H3V16H7V8Z" class="fill-black animate animate-bounce " />
+                                <path d="M14 8H10V16H14V8Z"
+                                    class="fill-black animate animate-bounce  [animation-delay:.2s]" />
+                                <path d="M21 8H17V16H21V8Z"
+                                    class="fill-black animate animate-bounce  [animation-delay:.4s]" />
+                            </svg>
                             <span class="g-button-text">Search</span>
                         </button>
 
@@ -41,11 +54,162 @@
 
         <section>
             <div class="grid"></div>
-            <button class="g-button" type="button" onclick="loadMore()">
-                <img src="refresh-icon.svg" class="g-icon" />
+            <button id="load-more-btn" class="g-button" type="button" onclick="loadMore()">
+                <img id="refresh-icon" src="refresh-icon.svg" class="g-icon" />
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-live="polite"
+                    aria-busy="true" aria-labelledby="title-08a desc-08a" class="spinner-icon g-icon">
+                    <path d="M7 8H3V16H7V8Z" class="fill-black animate animate-bounce " />
+                    <path d="M14 8H10V16H14V8Z" class="fill-black animate animate-bounce  [animation-delay:.2s]" />
+                    <path d="M21 8H17V16H21V8Z" class="fill-black animate animate-bounce  [animation-delay:.4s]" />
+                </svg>
                 <span class="g-button-text">Load More</span>
             </button>
         </section>
+
+
+        <!-- Modal -->
+        <div id="img-modal" class="modal">
+            <section class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <img id="modal-image" width="100%" height="100%" src="" alt="">
+
+                <div class="modal-title-wrapper">
+                    <h2 id="modal-title" class="modal-title"></h2>
+
+                    <div class="avatar-wrapper">
+                        <span id="modal-user" class="avatar-name"></span>
+                        <img id="modal-userImageURL" class="avatar-img" src="" alt="">
+                    </div>
+                </div>
+
+                <dl class="feature-wrapper">
+                    <article>
+                        <div class="article-inner">
+                            <span class="article-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                    <path
+                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6">
+                                    </path>
+                                </svg>
+                            </span>
+                            <div>
+                                <p class="feature-name">Views</p>
+                                <p id="modal-views" class="feature-value"></p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article>
+                        <div class="article-inner">
+                            <span class="article-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
+                                    <path d="M7 11l5 5l5 -5"></path>
+                                    <path d="M12 4l0 12"></path>
+                                </svg>
+                            </span>
+
+                            <div>
+                                <p class="feature-name">Downloads</p>
+                                <p id="modal-downloads" class="feature-value"></p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article>
+                        <div class="article-inner">
+                            <span class="article-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path
+                                        d="M7 11v8a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-7a1 1 0 0 1 1 -1h3a4 4 0 0 0 4 -4v-1a2 2 0 0 1 4 0v5h3a2 2 0 0 1 2 2l-1 5a2 3 0 0 1 -2 2h-7a3 3 0 0 1 -3 -3">
+                                    </path>
+                                </svg>
+                            </span>
+
+                            <div>
+                                <p class="feature-name">Likes</p>
+                                <p id="modal-likes" class="feature-value"></p>
+                            </div>
+                        </div>
+                    </article>
+                </dl>
+
+                <div class="more-info-wrapper">
+                    <dl>
+                        <div class="more-info-title">
+                            <dt>ID</dt>
+                            <dd id="modal-id"></dd>
+                        </div>
+
+                        <div class="more-info-title">
+                            <dt>Page URL</dt>
+                            <dd><a id="modal-pageURL" rel="noopener noreferrer" target="_blank" href=""></a></dd>
+                        </div>
+
+                        <div class="more-info-title">
+                            <dt>Type</dt>
+                            <dd id="modal-type"></dd>
+                        </div>
+
+                        <div class="more-info-title">
+                            <dt>Tags</dt>
+                            <dd id="modal-tags"></dd>
+                        </div>
+
+                        <div class="more-info-title">
+                            <dt>Preview URL</dt>
+                            <dd><a id="modal-previewURL" rel="noopener noreferrer" target="_blank" href=""></a></dd>
+                        </div>
+
+                        <div class="more-info-title">
+                            <dt>Preview Image Dimensions</dt>
+                            <dd id="modal-previewDimensions"></dd>
+                        </div>
+
+                        <div class="more-info-title">
+                            <dt>Web Format URL</dt>
+                            <dd><a id="modal-webformatURL" rel="noopener noreferrer" target="_blank" href=""></a></dd>
+                        </div>
+
+                        <div class="more-info-title">
+                            <dt>Web Format Dimensions</dt>
+                            <dd id="modal-webformatDimensions"></dd>
+                        </div>
+
+                        <div class="more-info-title">
+                            <dt>Large Image URL</dt>
+                            <dd><a id="modal-largeImageURL" rel="noopener noreferrer" target="_blank" href=""></a></dd>
+                        </div>
+
+                        <div class="more-info-title">
+                            <dt>Image Dimensions</dt>
+                            <dd id="modal-dimensions"></dd>
+                        </div>
+
+                        <div class="more-info-title">
+                            <dt>Image Size</dt>
+                            <dd id="modal-imageSize"></dd>
+                        </div>
+
+                        <div style="border-bottom: none" class="more-info-title">
+                            <dt>User URL</dt>
+                            <dd><a id="modal-userURL" rel="noopener noreferrer" target="_blank" href=""></a></dd>
+                        </div>
+
+                    </dl>
+                </div>
+            </section>
+        </div>
 
     </main>
 </body>

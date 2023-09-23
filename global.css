@@ -25,6 +25,17 @@ section {
     margin: 0 auto;
 }
 
+a {
+    color: #3B82F6;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+        color: #2563EB;
+    }
+}
+
 .g-input {
     font-family: 'Inter', sans-serif;
     border: 1px solid #E5E7EB;
@@ -127,11 +138,12 @@ section {
     background-color: #fff;
     border-radius: 0.5rem;
     border: 1px solid #E5E7EB;
-    max-width: 16rem;
+    width: 16rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 24rem;
+    cursor: pointer;
 }
 
 .card-image {
@@ -142,21 +154,14 @@ section {
 }
 
 @media (min-width: 640px) {
-    .main-sm {
+    main {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
 
-    .sm-mt-4 {
+    .form-description {
         margin-top: 1rem;
-    }
-
-    .sm-block {
         display: block;
-    }
-
-    .sm-flex {
-        display: flex;
     }
 
     .g-form {
@@ -172,18 +177,13 @@ section {
         margin: 0;
     }
 
-    .md-text-3xl {
+    .g-subtitle {
         font-size: 1.875rem;
         line-height: 2.25rem;
     }
-
 }
 
 @media (min-width: 768px) {
-    .md-p-12 {
-        padding: 3rem;
-    }
-
     .form-wrapper {
         display: block;
     }
@@ -195,34 +195,21 @@ section {
     .grid {
         grid-template-columns: repeat(2, minmax(0, 3fr));
     }
-
 }
 
 @media (min-width: 1024px) {
-    .main-lg {
+    main {
         padding-left: 2rem;
         padding-right: 2rem;
-    }
-
-    .lg-px-16 {
-        padding-left: 4rem;
-        padding-right: 4rem;
-    }
-
-    .lg-py-24 {
-        padding-top: 6rem;
-        padding-bottom: 6rem;
     }
 
     .grid {
         grid-template-columns: repeat(3, minmax(0, 3fr));
     }
-
 }
 
 @media (min-width: 1280px) {
     .grid {
         grid-template-columns: repeat(4, minmax(0, 3fr));
     }
-
 }
