@@ -1,7 +1,8 @@
 // For Search (form elements & variables)
 let page = 1,
   results = [],
-  grid;
+  gridResultsElement,
+  gridFavoritesElement;
 
 // For loading state
 let spinnerIcons,
@@ -59,11 +60,15 @@ const toggleLoading = () => {
 // Initial load
 document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
-    grid = document.getElementsByClassName('grid')[0];
-    grid.innerHTML = '';
+    gridResultsElement = document.getElementsByClassName('grid')[1];
+    gridResultsElement.innerHTML = '';
     searchImages('', 1).then((res) => {
       renderResults(res.hits);
     });
+    gridFavoritesElement = document.getElementsByClassName('grid')[0];
+    gridFavoritesElement.innerHTML = '';
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    renderResults(favorites, gridFavoritesElement);
   }
 };
 
@@ -73,7 +78,7 @@ const onSearch = async (e) => {
   results = [];
   const queryInput = e.target.query;
   const res = await searchImages(queryInput.value, 1);
-  grid.innerHTML = '';
+  gridResultsElement.innerHTML = '';
   renderResults(res.hits);
 };
 
@@ -84,7 +89,7 @@ const loadMore = async () => {
   renderResults(res.hits);
 };
 
-const renderResults = (results = []) => {
+const renderResults = (results = [], element = gridResultsElement, renderEl = 'main') => {
   results.forEach((item) => {
     item.isInFavorites = checkIfInFavorites(item.id);
     const figure = document.createElement('figure');
@@ -158,14 +163,14 @@ const renderResults = (results = []) => {
     addToFavoritesBtn.classList.add('g-button');
     addToFavoritesBtn.onclick = () => toggleFavorite(item.id);
     const favoriteBadge = document.createElement('img');
-    favoriteBadge.id = item.id;
+    favoriteBadge.id = renderEl === 'main' ? `${item.id}-fav-btn1` : `${item.id}-fav-btn2`;
     favoriteBadge.width = 16;
     favoriteBadge.height = 16;
     favoriteBadge.src = item.isInFavorites ? './icons/heart-filled-icon.svg' : './icons/heart-icon.svg';
     addToFavoritesBtn.appendChild(favoriteBadge);
     bottomDiv.appendChild(addToFavoritesBtn);
 
-    grid.appendChild(figure);
+    element.appendChild(figure);
   });
 };
 
@@ -289,16 +294,13 @@ const onOutsideClick = (e) => {
 // Event listener
 window.addEventListener('click', onOutsideClick);
 
-// Add to Favorites
 const addToFavorites = (id) => {
   const selectedItem = results.find((item) => item.id === id);
-  console.log(selectedItem);
   let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
   favorites.push(selectedItem);
   localStorage.setItem('favorites', JSON.stringify(favorites));
 };
 
-// Remove from Favorites
 const removeFromFavorites = (id) => {
   let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
   favorites = favorites?.filter((item) => item.id !== id);
@@ -316,15 +318,26 @@ const checkIfInFavorites = (id) => {
   }
 };
 
-// Add image to Favorites
 const toggleFavorite = (id) => {
-  const favoriteBadge = document.getElementById(id);
+  const favoriteBadge = document.getElementById(`${id}-fav-btn1`);
   const isInFavorites = checkIfInFavorites(id);
   if (isInFavorites) {
     removeFromFavorites(id);
     favoriteBadge.src = './icons/heart-icon.svg';
+
+    // Update favorites badge in favorites section
+    const favoriteBadgeSearchSection = document.getElementById(`${id}-fav-btn2`);
+    favoriteBadgeSearchSection.src = isInFavorites ? './icons/heart-filled-icon.svg' : './icons/heart-icon.svg';
   } else {
     addToFavorites(id);
     favoriteBadge.src = './icons/heart-filled-icon.svg';
   }
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  gridFavoritesElement.innerHTML = '';
+  renderResults(favorites, gridFavoritesElement, 'favorites');
+};
+
+const clearFavorites = () => {
+  localStorage.removeItem('favorites');
+  gridFavoritesElement.innerHTML = '';
 };
