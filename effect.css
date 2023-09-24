@@ -9,6 +9,10 @@
     justify-content: flex-end;
 }
 
+figure {
+    margin: 0;
+}
+
 figure.h-effect {
     color: #fff;
     position: relative;

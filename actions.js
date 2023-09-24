@@ -86,6 +86,7 @@ const loadMore = async () => {
 
 const renderResults = (results = []) => {
   results.forEach((item) => {
+    item.isInFavorites = checkIfInFavorites(item.id);
     const figure = document.createElement('figure');
     figure.classList.add('card-1');
     figure.classList.add('h-effect');
@@ -152,6 +153,17 @@ const renderResults = (results = []) => {
     bottomDiv.appendChild(viewsBadge);
     bottomDiv.appendChild(downloadsBadge);
     bottomDiv.appendChild(likesBadge);
+
+    const addToFavoritesBtn = document.createElement('button');
+    addToFavoritesBtn.classList.add('g-button');
+    addToFavoritesBtn.onclick = () => toggleFavorite(item.id);
+    const favoriteBadge = document.createElement('img');
+    favoriteBadge.id = item.id;
+    favoriteBadge.width = 16;
+    favoriteBadge.height = 16;
+    favoriteBadge.src = item.isInFavorites ? './icons/heart-filled-icon.svg' : './icons/heart-icon.svg';
+    addToFavoritesBtn.appendChild(favoriteBadge);
+    bottomDiv.appendChild(addToFavoritesBtn);
 
     grid.appendChild(figure);
   });
@@ -276,3 +288,43 @@ const onOutsideClick = (e) => {
 
 // Event listener
 window.addEventListener('click', onOutsideClick);
+
+// Add to Favorites
+const addToFavorites = (id) => {
+  const selectedItem = results.find((item) => item.id === id);
+  console.log(selectedItem);
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  favorites.push(selectedItem);
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+};
+
+// Remove from Favorites
+const removeFromFavorites = (id) => {
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  favorites = favorites?.filter((item) => item.id !== id);
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+};
+
+// Check if image is in Favorites
+const checkIfInFavorites = (id) => {
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  if (!favorites || favorites === null) {
+    return false;
+  } else {
+    const isInFavorites = favorites?.find((item) => item.id === id);
+    return isInFavorites;
+  }
+};
+
+// Add image to Favorites
+const toggleFavorite = (id) => {
+  const favoriteBadge = document.getElementById(id);
+  const isInFavorites = checkIfInFavorites(id);
+  if (isInFavorites) {
+    removeFromFavorites(id);
+    favoriteBadge.src = './icons/heart-icon.svg';
+  } else {
+    addToFavorites(id);
+    favoriteBadge.src = './icons/heart-filled-icon.svg';
+  }
+};
