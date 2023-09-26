@@ -107,22 +107,37 @@ const renderResults = (results = [], element = gridResultsElement, renderEl = 'm
     image.classList.add('card-image');
     figure.appendChild(image);
 
+    const addToFavoritesBtn = document.createElement('button');
+    addToFavoritesBtn.classList.add('fav-button');
+    addToFavoritesBtn.onclick = () => toggleFavorite(item.id);
+    const favoriteBadge = document.createElement('img');
+    favoriteBadge.id = renderEl === 'main' ? `${item.id}-fav-btn1` : `${item.id}-fav-btn2`;
+    favoriteBadge.width = 16;
+    favoriteBadge.height = 16;
+    favoriteBadge.src = item.isInFavorites ? './icons/heart-filled-icon.svg' : './icons/heart-icon.svg';
+    addToFavoritesBtn.appendChild(favoriteBadge);
+    const topDiv = document.createElement('div');
+    topDiv.appendChild(addToFavoritesBtn);
+
     const figcaption = document.createElement('figcaption');
     figure.appendChild(figcaption);
-    const topDiv = document.createElement('div');
+
     topDiv.classList.add('effect-top');
     figcaption.appendChild(topDiv);
-
-    item.tags.split(', ').forEach((tag) => {
-      const span = document.createElement('span');
-      span.classList.add('tag-1');
-      span.innerHTML = tag;
-      topDiv.appendChild(span);
-    });
 
     const bottomDiv = document.createElement('div');
     bottomDiv.classList.add('effect-bottom');
     figcaption.appendChild(bottomDiv);
+
+    const tagWrapper = document.createElement('div');
+    tagWrapper.classList.add('tag-wrapper');
+    item.tags.split(', ').forEach((tag) => {
+      const span = document.createElement('span');
+      span.classList.add('tag-1');
+      span.innerHTML = tag;
+      tagWrapper.appendChild(span);
+      topDiv.appendChild(tagWrapper);
+    });
 
     const viewsBadge = document.createElement('div');
     viewsBadge.classList.add('tag-2');
@@ -160,17 +175,6 @@ const renderResults = (results = [], element = gridResultsElement, renderEl = 'm
     bottomDiv.appendChild(viewsBadge);
     bottomDiv.appendChild(downloadsBadge);
     bottomDiv.appendChild(likesBadge);
-
-    const addToFavoritesBtn = document.createElement('button');
-    addToFavoritesBtn.classList.add('g-button');
-    addToFavoritesBtn.onclick = () => toggleFavorite(item.id);
-    const favoriteBadge = document.createElement('img');
-    favoriteBadge.id = renderEl === 'main' ? `${item.id}-fav-btn1` : `${item.id}-fav-btn2`;
-    favoriteBadge.width = 16;
-    favoriteBadge.height = 16;
-    favoriteBadge.src = item.isInFavorites ? './icons/heart-filled-icon.svg' : './icons/heart-icon.svg';
-    addToFavoritesBtn.appendChild(favoriteBadge);
-    bottomDiv.appendChild(addToFavoritesBtn);
 
     element.appendChild(figure);
   });

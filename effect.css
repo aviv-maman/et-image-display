@@ -1,12 +1,11 @@
 .effect-top,
 .effect-bottom {
     display: flex;
-    flex-wrap: wrap;
     gap: 0.5rem;
 }
 
 .effect-top {
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 figure {
@@ -101,4 +100,25 @@ figure.h-effect.hover figcaption .effect-top {
     display: flex;
     align-items: center;
     gap: 0.2rem;
+}
+
+.fav-button {
+    background-color: #f87171;
+    border: 1px solid #f87171;
+    /* border: 1px solid #E5E7EB; */
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    height: 1.5rem;
+    min-width: fit-content;
+}
+
+.tag-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-end;
 }
