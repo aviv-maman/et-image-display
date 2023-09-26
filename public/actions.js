@@ -62,7 +62,7 @@ document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
     gridResultsElement = document.getElementsByClassName('grid')[1];
     gridResultsElement.innerHTML = '';
-    searchImages('', 1).then((res) => {
+    searchImages().then((res) => {
       renderResults(res.hits);
     });
     gridFavoritesElement = document.getElementsByClassName('grid')[0];
@@ -110,7 +110,10 @@ const renderResults = (results = [], element = gridResultsElement, renderEl = 'm
 
     const addToFavoritesBtn = document.createElement('button');
     addToFavoritesBtn.classList.add('fav-button');
-    addToFavoritesBtn.onclick = () => toggleFavorite(item.id);
+    addToFavoritesBtn.onclick = (e) => {
+      e.stopPropagation();
+      toggleFavorite(item.id);
+    };
     const favoriteBadge = document.createElement('img');
     favoriteBadge.id = renderEl === 'main' ? `${item.id}-fav-btn1` : `${item.id}-fav-btn2`;
     favoriteBadge.width = 16;
@@ -181,17 +184,11 @@ const renderResults = (results = [], element = gridResultsElement, renderEl = 'm
   });
 };
 
-const searchImages = async (query, category = '', page = 1, pageSize = 12) => {
+const searchImages = async (query = '', category = '', page = 1, pageSize = 12) => {
   toggleLoading();
   if (category === 'all') category = '';
   try {
-    const API_KEY = '39601786-1601cac9077ffbe35beb1c0a6';
-    const res = await fetch(
-      `https://pixabay.com/api/?key=${API_KEY}&q=${query}&image_type=photo&category=${category}&page=${page}&per_page=${pageSize}`,
-      {
-        cache: 'force-cache',
-      }
-    );
+    const res = await fetch(`http://localhost:3000/api/search?&query=${query}&category=${category}&page=${page}&pageSize=${pageSize}`);
 
     if (!res.ok) {
       const error = new Error('An error occurred while fetching the data.');
@@ -286,12 +283,17 @@ const prepareModalData = (id) => {
 const openModal = () => {
   const modal = document.getElementById('img-modal');
   modal.style.display = 'block';
+  modal.children[0].scrollTo(0, 0);
+  const main = document.getElementsByTagName('main')[0];
+  main.classList.add('blur');
 };
 
 // Function to close the modal
 const closeModal = () => {
   const modal = document.getElementById('img-modal');
   modal.style.display = 'none';
+  const main = document.getElementsByTagName('main')[0];
+  main.classList.remove('blur');
 };
 
 // Function to close the modal on an outside click

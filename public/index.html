@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./global.css">
+    <link rel="stylesheet" href="/styles/global.css">
     <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
@@ -84,11 +84,12 @@
                 <span class="g-button-text">Load More</span>
             </button>
         </section>
-
-        <!-- Start of Modal -->
-        <div id="img-modal" class="modal">
+    </main>
+    <!-- Start of Modal -->
+    <div id="img-modal" class="modal-backdrop">
+        <div class="modal-wrapper">
+            <span class="close" onclick="closeModal()"></span>
             <section class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
                 <img id="modal-image" width="100%" height="100%" src="" alt="">
 
                 <div class="modal-title-wrapper">
@@ -228,9 +229,8 @@
                 </div>
             </section>
         </div>
-        <!-- End of Modal -->
-
-    </main>
+    </div>
+    <!-- End of Modal -->
 </body>
 
 </html>
