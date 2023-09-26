@@ -69,6 +69,7 @@ document.onreadystatechange = () => {
     gridFavoritesElement.innerHTML = '';
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     renderResults(favorites, gridFavoritesElement);
+    renderCategories();
   }
 };
 
@@ -77,7 +78,8 @@ const onSearch = async (e) => {
   page = 1;
   results = [];
   const queryInput = e.target.query;
-  const res = await searchImages(queryInput.value, 1);
+  const categoriesInput = e.target.categories;
+  const res = await searchImages(queryInput.value, categoriesInput.value, 1);
   gridResultsElement.innerHTML = '';
   renderResults(res.hits);
 };
@@ -174,13 +176,17 @@ const renderResults = (results = [], element = gridResultsElement, renderEl = 'm
   });
 };
 
-const searchImages = async (query, page = 1, pageSize = 12) => {
+const searchImages = async (query, category = '', page = 1, pageSize = 12) => {
   toggleLoading();
+  if (category === 'all') category = '';
   try {
     const API_KEY = '39601786-1601cac9077ffbe35beb1c0a6';
-    const res = await fetch(`https://pixabay.com/api/?key=${API_KEY}&q=${query}&image_type=photo&page=${page}&per_page=${pageSize}`, {
-      cache: 'force-cache',
-    });
+    const res = await fetch(
+      `https://pixabay.com/api/?key=${API_KEY}&q=${query}&image_type=photo&category=${category}&page=${page}&per_page=${pageSize}`,
+      {
+        cache: 'force-cache',
+      }
+    );
 
     if (!res.ok) {
       const error = new Error('An error occurred while fetching the data.');
@@ -340,4 +346,41 @@ const toggleFavorite = (id) => {
 const clearFavorites = () => {
   localStorage.removeItem('favorites');
   gridFavoritesElement.innerHTML = '';
+};
+
+const categories = [
+  'all',
+  'backgrounds',
+  'fashion',
+  'nature',
+  'science',
+  'education',
+  'feelings',
+  'health',
+  'people',
+  'religion',
+  'places',
+  'animals',
+  'industry',
+  'computer',
+  'food',
+  'sports',
+  'transportation',
+  'travel',
+  'buildings',
+  'business',
+  'music',
+];
+
+const renderCategories = () => {
+  const categoriesElement = document.getElementById('categories');
+  categories.forEach((category) => {
+    const categoryElement = document.createElement('option');
+    categoryElement.classList.add('category');
+    categoryElement.innerHTML = category.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) {
+      return str.toUpperCase();
+    });
+    categoryElement.value = category;
+    categoriesElement.appendChild(categoryElement);
+  });
 };
