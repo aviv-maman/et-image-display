@@ -86,8 +86,9 @@ const onSearch = async (e) => {
 
 const loadMore = async () => {
   const query = document.getElementById('query').value;
+  const categories = document.getElementById('categories').value;
   page++;
-  const res = await searchImages(query, page);
+  const res = await searchImages(query, categories, page);
   renderResults(res.hits);
 };
 
