@@ -283,7 +283,8 @@ const prepareModalData = (id) => {
 const openModal = () => {
   const modal = document.getElementById('img-modal');
   modal.style.display = 'block';
-  modal.children[0].scrollTo(0, 0);
+  const modalContent = document.getElementsByClassName('modal-content')[0];
+  modalContent.scrollTo(0, 0);
   const main = document.getElementsByTagName('main')[0];
   main.classList.add('blur');
 };
