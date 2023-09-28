@@ -106,7 +106,6 @@ figure.h-effect.hover figcaption .effect-top {
 .fav-button {
     background-color: #f87171;
     border: 1px solid #f87171;
-    /* border: 1px solid #E5E7EB; */
     border-radius: 0.5rem;
     display: flex;
     align-items: center;
@@ -115,6 +114,11 @@ figure.h-effect.hover figcaption .effect-top {
     padding: 0.25rem;
     height: 1.5rem;
     min-width: fit-content;
+
+    &:hover {
+        background-color: #ef4444;
+        border: 1px solid #dc2626;
+    }
 }
 
 .tag-wrapper {

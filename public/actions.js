@@ -104,7 +104,10 @@ const renderResults = (results = [], element = gridResultsElement, renderEl = 'm
     };
 
     const image = document.createElement('img');
-    image.src = item.largeImageURL;
+    image.src = item.largeImageURL || './icons/placeholder-image.png';
+    image.onerror = () => {
+      image.src = './icons/placeholder-image.png';
+    };
     image.classList.add('card-image');
     figure.appendChild(image);
 
