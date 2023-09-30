@@ -10,7 +10,7 @@ git clone https://github.com/aviv-maman/et-image-display
 4. Register an account on Pixabay https://pixabay.com to get an API key.
 5. Visit https://pixabay.com/api/docs, copy your API key, and paste it inside the .env file by adding the following line:
 ```javascript
-PIXABAY_API_KEY=[YOUR__API_KEY]
+PIXABAY_API_KEY=YOUR_API_KEY
 ```
 6. Run
 ```node
