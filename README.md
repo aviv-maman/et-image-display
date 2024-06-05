@@ -6,18 +6,18 @@ A simple application to display images using Pixabay API.
 ```
 git clone https://github.com/aviv-maman/et-image-display
 ```
-3. Create .env file inside the root folder.
-4. Register an account on Pixabay https://pixabay.com to get an API key.
-5. Visit https://pixabay.com/api/docs, copy your API key, and paste it inside the .env file by adding the following line:
+2. Create .env file inside the root folder.
+3. Register an account on Pixabay https://pixabay.com to get an API key.
+4. Visit https://pixabay.com/api/docs, copy your API key, and paste it inside the .env file by adding the following line:
 ```javascript
 PIXABAY_API_KEY=YOUR_API_KEY
 ```
-6. Run
+5. Run
 ```node
 npm install
 ```
-7. Run
+6. Run
 ```
 npm run dev
 ```
-8. Go to ```http://localhost:3000```
+7. Go to ```http://localhost:3000```
