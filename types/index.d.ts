@@ -22,8 +22,7 @@ export type ImgSearchRes = {
     views: number;
     webformatHeight: number;
     webformatURL: string; //'https://pixabay.com/get/gae5ae0050_640.jpg';
-    //Example: 640
-    webformatWidth: number;
+    webformatWidth: number; //Example: 640
   }[];
   total: number;
   totalHits: number;
