@@ -1,15 +1,16 @@
-import dotenv from 'dotenv';
-dotenv.config({ path: './.env' });
 import path from 'path';
-import api from './routes/api';
+import dotenv from 'dotenv';
 import type { Request, Response } from 'express';
+import app from './app';
+import api from './routes/api';
+
+dotenv.config({ path: './.env' });
 
 process.on('uncaughtException', (err: Error) => {
   console.log('Uncaught Exception! 💥 Shutting down... 💩');
-  console.error(err.name, err.message, err.stack);
+  console.error(`${err.name} has occurred: ${err.message}`);
   process.exit(1);
 });
-import app from './app';
 
 const port = process.env.PORT || 3000;
 
@@ -27,7 +28,7 @@ const server = app.listen(port, () => {
 
 process.on('unhandledRejection', (err: Error) => {
   console.log('Unhandled Rejection! 💥 Shutting down... 🤡');
-  console.error(err.name, err.message, err.stack);
+  console.error(`${err.name} has occurred: ${err.message}`);
   server.close((err) => {
     process.exit(1);
   });
@@ -36,7 +37,7 @@ process.on('unhandledRejection', (err: Error) => {
 process.on('SIGTERM', (listener) => {
   console.log('👋 SIGTERM RECEIVED. Shutting down gracefully');
   server.close((err) => {
-    console.error(err?.name, err?.message, err?.stack);
+    console.error(`${err?.name} has occurred: ${err?.message}`);
     console.log('💥 Process terminated!');
     process.exit(0);
   });
