@@ -20,8 +20,9 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/api', api);
 
 const server = app.listen(port, () => {
-  console.log(`Environment: ${process.env.NODE_ENV}`);
-  console.log(`Express server is listening on port ${port}`);
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`Server is running on development environment: http://localhost:${port}`);
+  }
 });
 
 process.on('unhandledRejection', (err: Error) => {

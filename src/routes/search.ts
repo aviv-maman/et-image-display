@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
   const chosenCategory = category || categories[Math.floor(Math.random() * categories.length)];
 
   const pixabayRes = await fetch(
-    `https://pixabay.com/api/?key=${API_KEY}&q=${query}&image_type=photo&category=${chosenCategory}&page=${page}&per_page=${pageSize}`
+    `https://pixabay.com/api/?key=${API_KEY}&q=${query}&image_type=all&category=${chosenCategory}&page=${page}&per_page=${pageSize}`,
   );
 
   const responseJson = await pixabayRes.json();

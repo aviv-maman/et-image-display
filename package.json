@@ -1,14 +1,11 @@
 {
   "name": "et-image-display",
-  "description": "",
+  "description": "Simple tool to search for images on Pixabay",
   "version": "1.0.0",
-  "main": "actions.js",
   "scripts": {
-    "start": "node ./dist/server.js",
-    "dev": "nodemon ./src/server.ts",
-    "prod": "SET NODE_ENV=production&&nodemon ./src/server.ts",
-    "tsc": "tsc",
-    "build": "tsc -p ."
+    "dev": "tsc && nodemon ./src/server.ts",
+    "build": "tsc -p .",
+    "start": "node ./src/dist/server.js"
   },
   "repository": {
     "type": "git",
@@ -22,14 +19,15 @@
   },
   "homepage": "https://github.com/aviv-maman/et-image-display#readme",
   "dependencies": {
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
   },
   "devDependencies": {
-    "@types/express": "^4.17.18",
-    "@types/node": "^20.7.0",
-    "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.5.1",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   }
 }
