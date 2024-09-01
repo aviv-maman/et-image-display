@@ -30,7 +30,7 @@
     margin: 1rem auto;
     padding: 20px;
     border: 1px solid #888;
-    max-width: 1280px;
+    max-width: 720px;
     position: relative;
     height: 80vh;
     overflow-y: auto;
@@ -188,8 +188,8 @@ dl {
 
 @media (min-width: 640px) {
     .modal-content {
-        margin: 8rem auto;
-        width: 100%;
+        margin: 4rem auto;
+        width: 90vw;
     }
 }
 
