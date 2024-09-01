@@ -78,8 +78,9 @@ const onSearch = async (e) => {
   page = 1;
   results = [];
   const queryInput = e.target.query;
-  const categoriesInput = e.target.categories;
-  const res = await searchImages(queryInput.value, categoriesInput.value, 1);
+  const categoriesSelect = e.target.categories;
+  const imgTypeSelect = e.target.image_type;
+  const res = await searchImages(queryInput.value, imgTypeSelect.value, categoriesSelect.value, 1);
   gridResultsElement.innerHTML = '';
   renderResults(res.hits);
 };
@@ -87,8 +88,9 @@ const onSearch = async (e) => {
 const loadMore = async () => {
   const query = document.getElementById('query').value;
   const categories = document.getElementById('categories').value;
+  const imgType = document.getElementById('image_type').value;
   page++;
-  const res = await searchImages(query, categories, page);
+  const res = await searchImages(query, imgType, categories, page);
   renderResults(res.hits);
 };
 
@@ -121,7 +123,9 @@ const renderResults = (results = [], element = gridResultsElement, renderEl = 'm
     favoriteBadge.id = renderEl === 'main' ? `${item.id}-fav-btn1` : `${item.id}-fav-btn2`;
     favoriteBadge.width = 16;
     favoriteBadge.height = 16;
-    favoriteBadge.src = item.isInFavorites ? './icons/heart-filled-icon.svg' : './icons/heart-icon.svg';
+    favoriteBadge.src = item.isInFavorites
+      ? './icons/heart-filled-icon.svg'
+      : './icons/heart-icon.svg';
     addToFavoritesBtn.appendChild(favoriteBadge);
     const topDiv = document.createElement('div');
     topDiv.appendChild(addToFavoritesBtn);
@@ -187,11 +191,13 @@ const renderResults = (results = [], element = gridResultsElement, renderEl = 'm
   });
 };
 
-const searchImages = async (query = '', category = '', page = 1, pageSize = 12) => {
+const searchImages = async (query = '', image_type, category, page = 1, pageSize = 12) => {
   toggleLoading();
   if (category === 'all') category = '';
   try {
-    const res = await fetch(`http://localhost:3000/api/search?&query=${query}&category=${category}&page=${page}&pageSize=${pageSize}`);
+    const res = await fetch(
+      `http://localhost:3000/api/search?query=${query}&image_type=${image_type}&category=${category}&page=${page}&pageSize=${pageSize}`,
+    );
 
     if (!res.ok) {
       const error = new Error('An error occurred while fetching the data.');
@@ -344,7 +350,9 @@ const toggleFavorite = (id) => {
 
     // Update favorites badge in favorites section
     const favoriteBadgeSearchSection = document.getElementById(`${id}-fav-btn2`);
-    favoriteBadgeSearchSection.src = isInFavorites ? './icons/heart-filled-icon.svg' : './icons/heart-icon.svg';
+    favoriteBadgeSearchSection.src = isInFavorites
+      ? './icons/heart-filled-icon.svg'
+      : './icons/heart-icon.svg';
   } else {
     addToFavorites(id);
     favoriteBadge.src = './icons/heart-filled-icon.svg';
@@ -359,7 +367,7 @@ const clearFavorites = () => {
   gridFavoritesElement.innerHTML = '';
 };
 
-const categories = [
+const CATEGORIES = [
   'all',
   'backgrounds',
   'fashion',
@@ -382,10 +390,11 @@ const categories = [
   'business',
   'music',
 ];
+const IMAGE_TYPES = ['all', 'photo', 'illustration', 'vector'];
 
 const renderCategories = () => {
   const categoriesElement = document.getElementById('categories');
-  categories.forEach((category) => {
+  CATEGORIES.forEach((category) => {
     const categoryElement = document.createElement('option');
     categoryElement.classList.add('category');
     categoryElement.innerHTML = category.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) {
@@ -393,5 +402,16 @@ const renderCategories = () => {
     });
     categoryElement.value = category;
     categoriesElement.appendChild(categoryElement);
+  });
+
+  const imgTypeElement = document.getElementById('image_type');
+  IMAGE_TYPES.forEach((type) => {
+    const typeElement = document.createElement('option');
+    typeElement.classList.add('category');
+    typeElement.innerHTML = type.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) {
+      return str.toUpperCase();
+    });
+    typeElement.value = type;
+    imgTypeElement.appendChild(typeElement);
   });
 };
