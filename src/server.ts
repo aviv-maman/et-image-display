@@ -1,10 +1,9 @@
-import path from 'path';
 import dotenv from 'dotenv';
-import type { Request, Response } from 'express';
-import app from './app';
-import api from './routes/api';
-
 dotenv.config({ path: './.env' });
+import path from 'path';
+import api from './routes/api';
+import app from './app';
+import type { Request, Response } from 'express';
 
 process.on('uncaughtException', (err: Error) => {
   console.log('Uncaught Exception! 💥 Shutting down... 💩');
